@@ -1,10 +1,11 @@
+import { languageConst } from './../consts/language.const';
 export class LocalStorageService {
 
     /**
      * Save User Langauge In Local Storage
      */
     static get currentLanguage(): string | null {
-        return localStorage.getItem('lang');
+        return localStorage.getItem('lang')|| languageConst.english ;
     }
 
     /**
