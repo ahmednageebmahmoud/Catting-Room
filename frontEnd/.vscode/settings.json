@@ -1,0 +1,20 @@
+{
+    "files.exclude": {
+        ".*": true,
+        "*.js": true,
+        "*.md": true,
+        "**/*.json": true,
+        "**/**/*.spec.ts": true,
+         
+        "e2e": true,
+        "node_modules": true,
+        "src/*.ico": true,
+        "src/*.ts": true,
+        "src/assets/.gitkeep": true,
+        "src/assets/css": false,
+        "src/assets/fonts": true,
+        "src/assets/scss": true,
+        "src/styles.css": true,
+        
+    }
+}

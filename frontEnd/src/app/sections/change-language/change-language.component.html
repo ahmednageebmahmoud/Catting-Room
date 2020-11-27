@@ -1,0 +1,9 @@
+<a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    <img [src]="user.currentLanguage.icon" class="flag-width" alt="flag">
+</a>
+<div class="dropdown-menu position-absolute" aria-labelledby="language-dropdown">
+    <a class="dropdown-item d-flex" href="javascript:void(0);" *ngFor="let lang of languages"
+        (click)="updateUserLnaguage(lang)"><img [src]="lang.icon" class="flag-width" alt="flag"> <span
+            class="align-self-center">&nbsp;{{user.resources[lang.resourcesKey]}}</span></a>
+</div>
