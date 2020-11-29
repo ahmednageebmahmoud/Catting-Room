@@ -7,12 +7,12 @@ export class ResourcesService {
     /**
      * Get Resourcws By Language Type
      */
-    static getCurrentResources(): IResources {
+    static getCurrentResources(): {[key:string]:string} {
         switch (LocalStorageService.currentLanguage) {
             case "ar":
-                return new ResourcesAr();
+                return new ResourcesAr() as any as {[key:string]:string} ;
             default:
-                return new ResourcesEn();
+                return new ResourcesEn()  as any as  {[key:string]:string};
         }
     }
 

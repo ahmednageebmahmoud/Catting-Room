@@ -11,13 +11,13 @@ export class CurrentUserService {
     userName?: string;
     email?: string;
 
-    currentLanguage: ILanguage = LanguageService.currentLanugage;
+    currentLanguage = LanguageService.currentLanugage;
 
     resources = ResourcesService.getCurrentResources();
 
-constructor(){
-    this.updateUserInformation();
-}
+    constructor() {
+        this.updateUserInformation();
+    }
 
     /**
      * Update User Information
@@ -38,8 +38,8 @@ constructor(){
         let currentDirection = this.currentLanguage.code == languageConst.english ? "ltr" : "rtl";
 
         let style = document.getElementById('mainStayle') as HTMLLinkElement;
-        
-        style.href =   style.href.replace(/rtl|ltr/, currentDirection);
+
+        style.href = style.href.replace(/rtl|ltr/, currentDirection);
     }
 
 

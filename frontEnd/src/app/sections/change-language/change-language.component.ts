@@ -15,13 +15,13 @@ import { CurrentUserService } from 'src/services/current.user.service';
 export class ChangeLanguageComponent implements OnInit {
 
 
-  languages?:ILanguage[];
+  languages?: ILanguage[];
 
 
-  constructor(public user:CurrentUserService) { }
+  constructor(public user: CurrentUserService) { }
 
   ngOnInit(): void {
-  this.languages= LanguageService.getLnaguages();
+    this.languages = LanguageService.getLnaguages();
 
   }
 

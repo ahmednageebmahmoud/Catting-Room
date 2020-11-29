@@ -12,7 +12,7 @@ export class GroupService {
                 id: GroupEnum.humor,
                 name: "Humor",
                 resourcesKey: "humor",
-                image: "images/humor.jpeg",
+                image: "images/humor.jpg",
             },
             {
                 id: GroupEnum.science_tech,
@@ -66,7 +66,7 @@ export class GroupService {
                 id: GroupEnum.education,
                 name: "Education",
                 resourcesKey: "education",
-                image: "images/education.jpeg",
+                image: "images/education.jpg",
             },
             {
                 id: GroupEnum.arts,
@@ -84,7 +84,7 @@ export class GroupService {
                 id: GroupEnum.relationships_identity,
                 name: "Relationships & Identity",
                 resourcesKey: "relationships_identity",
-                image: "images/relationships.jpeg",
+                image: "images/relationships.jpg",
             },
             {
                 id: GroupEnum.parenting,

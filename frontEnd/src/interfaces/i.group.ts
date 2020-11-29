@@ -3,5 +3,5 @@ export interface IGroup{
     name:string;
     resourcesKey:string;
     image:string;
-    lastMessage?:string;
+    lastMessage:string;
 }//End Interface

@@ -1,13 +1,7 @@
 
   function initChat(){
 
-  $('.search > input').on('keyup', function() {
-    var rex = new RegExp($(this).val(), 'i');
-      $('.people .person').hide();
-      $('.people .person').filter(function() {
-          return rex.test($(this).text());
-      }).show();
-  });
+ 
   
   $('.user-list-box .person').on('click', function(event) {
       if ($(this).hasClass('.active')) {
