@@ -21,4 +21,7 @@ export class ResourcesAr implements IResources {
     vehicles_commutes="المركبات و التنقلات";
     civics_community="التربية المدنية والمجتمع";
     covid="كورونا 19";
+    signinByGoogle="سجل الدخول بواسطة جوجل";
+    logOut="تسجيل الخروج";
+
 }

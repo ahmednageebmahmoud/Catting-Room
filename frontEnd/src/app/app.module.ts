@@ -12,6 +12,7 @@ import { CurrentUserService } from 'src/services/current.user.service';
 import { GroupsComponent } from './sections/groups/groups.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from "@angular/forms";
+import { LoggedUserComponent } from './sections/logged-user/logged-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { FormsModule,ReactiveFormsModule } from "@angular/forms";
     ChattingComponent,
     ChangeLanguageComponent,
     GroupsComponent,
-    GroupFilterPipe
+    GroupFilterPipe,
+    LoggedUserComponent
   ],
   imports: [
     BrowserModule,

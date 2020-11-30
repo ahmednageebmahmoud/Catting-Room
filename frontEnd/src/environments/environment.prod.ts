@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl:""
+  apiUrl:"",
+  googleClinetId:"342448434212-hugkcjlskevb9qvbjfhfadj30kjmis53.apps.googleusercontent.com"
 };

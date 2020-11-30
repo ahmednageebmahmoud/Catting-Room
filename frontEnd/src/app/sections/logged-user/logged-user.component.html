@@ -1,0 +1,44 @@
+<a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="8.5" cy="7" r="4"></circle>
+        <polyline points="17 11 19 13 23 9"></polyline>
+    </svg>
+</a>
+<div class="dropdown-menu position-absolute e-animated e-fadeInUp" aria-labelledby="userProfileDropdown">
+    <div class="user-profile-section" *ngIf="user.userData">
+        <div class="media mx-auto">
+            <img [src]="user.userData.image" class="img-fluid mr-2" alt="avatar">
+            <div class="media-body">
+                <h5 [innerHtml]="user.userData.name"></h5>
+            </div>
+        </div>
+    </div>
+    <div class="dropdown-item"  [hidden]="user.isLoggedIn">
+     <!--Sign In-->
+        <a #signInElemnt> 
+            <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google"
+                class="svg-inline--fa fa-google fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 488 512">
+                <path fill="currentColor"
+                    d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z">
+                </path>
+            </svg>
+            <span [innerHtml]="user.resources.signinByGoogle"></span>
+        </a>
+    </div>
+     <!--Sign Out-->
+    <div class="dropdown-item" [hidden]="!user.isLoggedIn">
+        <a (click)="signOut()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-log-out">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg> <span [innerHtml]="user.resources.logOut"></span>
+        </a>
+    </div>
+</div>

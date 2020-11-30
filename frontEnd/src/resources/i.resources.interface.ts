@@ -20,4 +20,6 @@ export interface IResources {
     vehicles_commutes: string;
     civics_community: string;
     covid:string;
+    signinByGoogle:string;
+    logOut:string;
 }

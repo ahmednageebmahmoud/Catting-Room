@@ -1,3 +1,5 @@
+import { LocalStorageService } from './local.storage.service';
+import { IUser } from './../interfaces/i.user.interface';
 import { languageConst } from './../consts/language.const';
 import { ILanguage } from './../interfaces/i.language.interface';
 import { ResourcesService } from './resources.service';
@@ -8,8 +10,9 @@ import { LanguageService } from './language.service';
 @Injectable()
 export class CurrentUserService {
 
-    userName?: string;
-    email?: string;
+    userData?: IUser|null;
+
+    isLoggedIn:boolean=false;
 
     currentLanguage = LanguageService.currentLanugage;
 
@@ -17,6 +20,7 @@ export class CurrentUserService {
 
     constructor() {
         this.updateUserInformation();
+
     }
 
     /**
@@ -27,6 +31,10 @@ export class CurrentUserService {
         this.currentLanguage = LanguageService.currentLanugage;
         //Update Resources
         this.resources = ResourcesService.getCurrentResources();
+
+        this.userData=LocalStorageService.userData;
+        this.isLoggedIn=this.userData?true:false;
+
 
         //Update Page Css Files
         this.updateCssFiles();
@@ -42,5 +50,23 @@ export class CurrentUserService {
         style.href = style.href.replace(/rtl|ltr/, currentDirection);
     }
 
+
+    /**
+     * Save User Data In Local Sotage
+     */
+    signIn(userData: IUser) {
+        this.userData = userData;
+        this.isLoggedIn=true;
+        LocalStorageService.userData=this.userData;
+    }
+
+    /**
+     * Sign Out
+     */
+    signOut(){
+        LocalStorageService.userData=null;
+        this.isLoggedIn=false;
+        this.userData=null;
+    }
 
 }//End CLass

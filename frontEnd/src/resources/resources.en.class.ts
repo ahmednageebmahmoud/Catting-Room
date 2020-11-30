@@ -21,4 +21,7 @@ export class ResourcesEn implements IResources {
     vehicles_commutes="Vehicles And Commutes";
     civics_community="Civics And community";
     covid="Covid 19";
+    signinByGoogle="Sign-in by google";
+    logOut="Log Out";
+
 }
