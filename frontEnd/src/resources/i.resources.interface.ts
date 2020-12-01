@@ -22,4 +22,5 @@ export interface IResources {
     covid:string;
     signinByGoogle:string;
     logOut:string;
+    message:string;
 }

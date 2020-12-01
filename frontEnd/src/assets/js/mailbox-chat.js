@@ -1,8 +1,5 @@
 
   function initChat(){
-
- 
-  
   $('.user-list-box .person').on('click', function(event) {
       if ($(this).hasClass('.active')) {
           return false;
@@ -13,12 +10,12 @@
           var hideTheNonSelectedContent = $(this).parents('.chat-system').find('.chat-box .chat-not-selected').hide();
           var showChatInnerContent = $(this).parents('.chat-system').find('.chat-box .chat-box-inner').show();
   
-          if (window.innerWidth <= 767) {
-            $('.chat-box .current-chat-user-name .name').html(personName.split(' ')[0]);
-          } else if (window.innerWidth > 767) {
-            $('.chat-box .current-chat-user-name .name').html(personName);
-          }
-          $('.chat-box .current-chat-user-name img').attr('src', personImage);
+          // if (window.innerWidth <= 767) {
+          //  // $('.chat-box .current-chat-user-name .name').html(personName.split(' ')[0]);
+          // } else if (window.innerWidth > 767) {
+          //  // $('.chat-box .current-chat-user-name .name').html(personName);
+          // }
+       //   $('.chat-box .current-chat-user-name img').attr('src', personImage);
           $('.chat').removeClass('active-chat');
           $('.user-list-box .person').removeClass('active');
           $('.chat-box .chat-box-inner').css('height', '100%');
@@ -135,18 +132,18 @@
       setTimeout(callOnConnect, 2000);
   })
   
-  $('.mail-write-box').on('keydown', function(event) {
-      if(event.key === 'Enter') {
-          var chatInput = $(this);
-          var chatMessageValue = chatInput.val();
-          if (chatMessageValue === '') { return; }
-          $messageHtml = '<div class="bubble me">' + chatMessageValue + '</div>';
-          var appendMessage = $(this).parents('.chat-system').find('.active-chat').append($messageHtml);
-          const getScrollContainer = document.querySelector('.chat-conversation-box');
-          getScrollContainer.scrollTop = getScrollContainer.scrollHeight;
-          var clearChatInput = chatInput.val('');
-      }
-  })
+  // $('.mail-write-box').on('keydown', function(event) {
+  //     if(event.key === 'Enter') {
+  //         var chatInput = $(this);
+  //         var chatMessageValue = chatInput.val();
+  //         if (chatMessageValue === '') { return; }
+  //         $messageHtml = '<div class="bubble me">' + chatMessageValue + '</div>';
+  //         var appendMessage = $(this).parents('.chat-system').find('.active-chat').append($messageHtml);
+  //         const getScrollContainer = document.querySelector('.chat-conversation-box');
+  //         getScrollContainer.scrollTop = getScrollContainer.scrollHeight;
+  //         var clearChatInput = chatInput.val('');
+  //     }
+  // })
   
   $('.hamburger, .chat-system .chat-box .chat-not-selected p').on('click', function(event) {
     $(this).parents('.chat-system').find('.user-list-box').toggleClass('user-list-box-show')

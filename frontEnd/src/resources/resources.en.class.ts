@@ -23,5 +23,6 @@ export class ResourcesEn implements IResources {
     covid="Covid 19";
     signinByGoogle="Sign-in by google";
     logOut="Log Out";
+    message="Message";
 
 }

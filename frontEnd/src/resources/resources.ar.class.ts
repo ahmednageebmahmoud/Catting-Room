@@ -23,5 +23,6 @@ export class ResourcesAr implements IResources {
     covid="كورونا 19";
     signinByGoogle="سجل الدخول بواسطة جوجل";
     logOut="تسجيل الخروج";
+    message="الرسالة";
 
 }

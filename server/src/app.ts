@@ -1,6 +1,7 @@
 import expres, { Application, NextFunction, Request, Response } from "express";
 import { groupRouter } from "./router/groups.router";
 import { join } from "path";
+import { messagesRputer } from "./router/measseges.router";
 const server: Application = expres();
 
 //Set Settings On All Requests
@@ -15,6 +16,8 @@ server.use((req: Request, res: Response, nex: NextFunction) => {
 
 //Group Router
 server.use('/api/groups', groupRouter);
+//Message Router
+server.use('/api/messages', messagesRputer);
 
 
 

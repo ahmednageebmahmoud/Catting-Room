@@ -3,6 +3,7 @@ import { HttpService } from './../../../services/http/http.service';
 import { Component, OnInit } from '@angular/core';
 import { CurrentUserService } from 'src/services/current.user.service';
 import { environment } from 'src/environments/environment';
+declare var initChat:any;
 
 @Component({
   selector: 'app-groups',
@@ -27,6 +28,9 @@ export class GroupsComponent implements OnInit {
   getGroups(): void {
     this.http.getGroups<IGroup[]>().subscribe(res => {
       this.groups = res;
+      setTimeout(()=>{
+        initChat();
+      },0)
     },error=>{
       alert('Error')
       console.error('Get Groups ',error);
