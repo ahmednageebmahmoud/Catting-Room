@@ -2,6 +2,7 @@ import expres, { Application, NextFunction, Request, Response } from "express";
 import { groupRouter } from "./router/groups.router";
 import { join } from "path";
 import { messagesRputer } from "./router/measseges.router";
+import { urlencoded,json } from "body-parser";
 const server: Application = expres();
 
 //Set Settings On All Requests
@@ -13,6 +14,9 @@ server.use((req: Request, res: Response, nex: NextFunction) => {
     
     nex();
 });
+
+server.use(urlencoded())
+server.use(json())
 
 //Group Router
 server.use('/api/groups', groupRouter);

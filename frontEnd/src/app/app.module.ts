@@ -1,3 +1,4 @@
+import { HttpInterceptorService } from './../services/http/http.intercptor.service';
 import { GroupFilterPipe } from './../pipes/group.filter.pipe';
 import { HttpService } from './../services/http/http.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,7 +11,7 @@ import { ChattingComponent } from './chatting/chatting.component';
 import { ChangeLanguageComponent } from './sections/change-language/change-language.component';
 import { CurrentUserService } from 'src/services/current.user.service';
 import { GroupsComponent } from './sections/groups/groups.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { LoggedUserComponent } from './sections/logged-user/logged-user.component';
 @NgModule({
@@ -30,7 +31,12 @@ import { LoggedUserComponent } from './sections/logged-user/logged-user.componen
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [CurrentUserService,HttpService],
+  providers: [CurrentUserService,HttpService,
+  {
+    provide:HTTP_INTERCEPTORS,
+    useClass:HttpInterceptorService,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
