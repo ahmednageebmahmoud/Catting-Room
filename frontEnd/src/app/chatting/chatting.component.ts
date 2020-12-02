@@ -4,7 +4,7 @@ import { IMessage } from './../../interfaces/i.message.interface';
 import { environment } from './../../environments/environment';
 import { IGroup } from './../../interfaces/i.group';
 import { CurrentUserService } from './../../services/current.user.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -41,10 +41,12 @@ export class ChattingComponent implements OnInit {
     message: new FormControl(null, Validators.required)
   });;
 
+
   constructor(public user: CurrentUserService, private http: HttpService) { }
 
   ngOnInit(): void {
 
+   
   }
 
 
@@ -65,6 +67,13 @@ export class ChattingComponent implements OnInit {
       alert('Some Error Has Been')
       console.error(error);
     })
+  }
+
+
+
+    /**Change Current Group */
+  changeCurrentGroup(group:IGroup):void{
+    this.currentChat=group;
   }
 
 }//End Class

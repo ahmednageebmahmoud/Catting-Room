@@ -1,6 +1,6 @@
 import { IGroup } from './../../../interfaces/i.group';
 import { HttpService } from './../../../services/http/http.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CurrentUserService } from 'src/services/current.user.service';
 import { environment } from 'src/environments/environment';
 declare var initChat:any;
@@ -15,10 +15,14 @@ export class GroupsComponent implements OnInit {
   textSearch?:string;
   groups?: IGroup[];
   env=environment;
+
+@Output()  ifChangeingGroupEvent:EventEmitter<IGroup>=new EventEmitter<IGroup>();
   constructor(private http: HttpService,public user:CurrentUserService) { }
 
   ngOnInit(): void {
     this.getGroups();
+
+  
   }
 
 

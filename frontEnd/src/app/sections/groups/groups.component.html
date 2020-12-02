@@ -9,7 +9,9 @@
 
 <div class="people">
 
-    <div class="person" *ngFor="let group of groups| groupFilter:textSearch" [attr.data-chat]="group.id">
+    <div class="person" *ngFor="let group of groups| groupFilter:textSearch" [attr.data-chat]="group.id"
+    (click)="ifChangeingGroupEvent.emit(group)"
+    >
         <div class="user-info">
             <div class="f-head">
                 <img [src]="env.apiUrl+group.image" alt="avatar">
