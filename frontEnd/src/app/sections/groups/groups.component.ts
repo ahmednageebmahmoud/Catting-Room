@@ -1,9 +1,13 @@
+import { LanguageService } from './../../../services/language.service';
+import { IMessage } from './../../../interfaces/i.message.interface';
+import { SocketIoService } from './../../../services/socket.io.service';
 import { IGroup } from './../../../interfaces/i.group';
 import { HttpService } from './../../../services/http/http.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CurrentUserService } from 'src/services/current.user.service';
 import { environment } from 'src/environments/environment';
-declare var initChat:any;
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+declare var initChat: any;
 
 @Component({
   selector: 'app-groups',
@@ -12,17 +16,19 @@ declare var initChat:any;
   ]
 })
 export class GroupsComponent implements OnInit {
-  textSearch?:string;
+  textSearch?: string;
   groups?: IGroup[];
-  env=environment;
+  env = environment;
 
-@Output()  ifChangeingGroupEvent:EventEmitter<IGroup>=new EventEmitter<IGroup>();
-  constructor(private http: HttpService,public user:CurrentUserService) { }
+  @Output() ifChangeingGroupEvent: EventEmitter<IGroup> = new EventEmitter<IGroup>();
+  @Input() groupsLoaded?: EventEmitter<IGroup[]>
+
+  constructor(private http: HttpService, public user: CurrentUserService) { }
 
   ngOnInit(): void {
     this.getGroups();
 
-  
+
   }
 
 
@@ -32,13 +38,32 @@ export class GroupsComponent implements OnInit {
   getGroups(): void {
     this.http.getGroups<IGroup[]>().subscribe(res => {
       this.groups = res;
-      setTimeout(()=>{
+
+      SocketIoService.onMessage().subscribe((newMessage: IMessage) => {
+        newMessage.isFromMe = newMessage.userInfo.email == this.user.userData?.email;
+        if (newMessage.isFromMe)
+          return;
+
+          this.appendNewMessage(newMessage);
+      });
+
+
+      //Pass Groups To Parent Component
+      this.groupsLoaded?.emit(this.groups);
+
+      setTimeout(() => {
         initChat();
-      },0)
-    },error=>{
+      }, 0)
+    }, error => {
       alert('Error')
-      console.error('Get Groups ',error);
+      console.error('Get Groups ', error);
     });
   }
 
+
+  appendNewMessage(newMessage:IMessage):void{
+    let groupTargt = this.groups?.find(c => c.id == newMessage.groupId) as IGroup;
+    groupTargt.messages.push(newMessage);
+    groupTargt.lastMessage = newMessage.message;
+  }
 }//End Class

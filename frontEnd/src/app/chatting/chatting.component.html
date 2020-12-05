@@ -9,7 +9,7 @@
                     <line x1="3" y1="18" x2="21" y2="18"></line>
                 </svg></div>
             <div class="user-list-box">
-                <app-groups (ifChangeingGroupEvent)="changeCurrentGroup($event)"></app-groups>
+                <app-groups [groupsLoaded]="getGroupsWheneLoaded" (ifChangeingGroupEvent)="changeCurrentGroup($event)"></app-groups>
             </div>
             <div class="chat-box">
 
@@ -143,7 +143,7 @@
 
                 <div class="chat-box-inner">
                     <div class="chat-meta-user">
-                        <div class="current-chat-user-name"><span><img [src]="env.apiUrl+currentChat.image"
+                        <div class="current-chat-user-name" *ngIf="currentChat"><span><img [src]="env.apiUrl+currentChat.image"
                                     alt="dynamic-image"><span class="name"
                                     [innerHtml]="user.resources[currentChat.resourcesKey]"></span></span></div>
 
@@ -229,14 +229,16 @@
                     </div>
                     <div class="chat-conversation-box">
                         <div id="chat-conversation-box-scroll" class="chat-conversation-box-scroll">
-                            <div class="chat" data-chat="1">
+                            <div class="chat"  
+                            *ngFor="let group of groups"
+                            [attr.data-chat]="group.id" 
+                            >
+
                                 <div class="conversation-start">
-                                    <span>Today, 5:38 PM</span>
                                 </div>
-                                <div class="bubble" *ngFor="let ms of currentChat.messages" [innerHtml]="ms.message"
+                                <div class="bubble" *ngFor="let ms of group.messages" [innerHtml]="ms.message"
                                     [ngClass]="{'me': ms.isFromMe,'you': !ms.isFromMe}">
                                 </div>
-
                             </div>
                         </div>
                     </div>

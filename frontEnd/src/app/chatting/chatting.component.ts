@@ -15,41 +15,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class ChattingComponent implements OnInit {
 
   env = environment;
-  currentChat: IGroup = {
-    id: 1,
-    name: "Food & Drink",
-    resourcesKey: "food_drink",
-    image: "images/food-and-drink.jpg",
-    messages: [
-      {
-        message: "Hello Test",
-        isFromMe: true
-      },
-      {
-        message: "Hello Test 2",
-        isFromMe: true
-      },
-      {
-        message: "Hello Test 3 From Another",
-        isFromMe: false
-      }
-    ] as IMessage[]
-  } as IGroup;
 
+  currentChat?: IGroup;
 
-  sendMessageForm: FormGroup=new FormGroup({
+  sendMessageForm: FormGroup = new FormGroup({
     message: new FormControl(null, Validators.required)
   });;
 
+  groups:IGroup[]=[];
+  getGroupsWheneLoaded: EventEmitter<IGroup[]> = new EventEmitter<IGroup[]>();
 
   constructor(public user: CurrentUserService, private http: HttpService) { }
 
   ngOnInit(): void {
+    //Subscribe On Event To Load Groups From Chaild
+    this.getGroupsWheneLoaded.subscribe((groups:IGroup[])=>{
+      this.groups=groups;
+    });
 
-   
   }
 
-
+/**Send Message To User */
   sendMessage(): void {
     if (this.sendMessageForm?.invalid) {
       return;
@@ -58,11 +44,11 @@ export class ChattingComponent implements OnInit {
       isFromMe: true,
       userInfo: this.user.userData as IUser,
       message: this.sendMessageForm?.controls.message.value,
-      groupId:this.currentChat.id
+      groupId: this.currentChat?.id as number
     };
     this.http.sendMessage(newmessage).subscribe(res => {
       this.sendMessageForm.reset();
-      this.currentChat.messages.push(newmessage)
+   this.appendNewMessage(newmessage)
     }, error => {
       alert('Some Error Has Been')
       console.error(error);
@@ -71,9 +57,15 @@ export class ChattingComponent implements OnInit {
 
 
 
-    /**Change Current Group */
-  changeCurrentGroup(group:IGroup):void{
-    this.currentChat=group;
+  /**Change Current Group */
+  changeCurrentGroup(group: IGroup): void {
+    this.currentChat = group;
+  }
+
+  appendNewMessage(newMessage:IMessage):void{
+    let groupTargt = this.groups?.find(c => c.id == newMessage.groupId) as IGroup;
+    groupTargt.messages.push(newMessage);
+    groupTargt.lastMessage = newMessage.message;
   }
 
 }//End Class

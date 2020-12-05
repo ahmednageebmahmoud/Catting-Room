@@ -1,9 +1,12 @@
+import { SocketIOService } from './services/socket.io.service';
 import expres, { Application, NextFunction, Request, Response } from "express";
 import { groupRouter } from "./router/groups.router";
 import { join } from "path";
 import { messagesRputer } from "./router/measseges.router";
 import { urlencoded,json } from "body-parser";
+import { createServer } from "http";
 const server: Application = expres();
+const serverHttp=createServer(server);
 
 //Set Settings On All Requests
 server.use((req: Request, res: Response, nex: NextFunction) => {
@@ -31,8 +34,11 @@ server.get('/images/:fileName',(req:Request,res:Response)=>{
 });
 
 
-server.listen(4900, () => {
-    console.log('Server Running On http://localhost:4900');
 
+//Init Socket Io
+SocketIOService.init(serverHttp);
+
+serverHttp.listen(4900, () => {
+    console.log('Server Running On http://localhost:4900');
 });
 

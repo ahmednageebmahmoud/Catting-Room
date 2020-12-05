@@ -1,3 +1,4 @@
+import { SocketIoService } from './../services/socket.io.service';
 import { LocalStorageService } from './../services/local.storage.service';
 import { IResources } from './../resources/i.resources.interface';
 import { ResourcesService } from './../services/resources.service';
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'frontEnd';
 
   ngOnInit() {
+    SocketIoService.init();
   }
 
 }
