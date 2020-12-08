@@ -1,3 +1,4 @@
+import { PipeTransform } from '@angular/core';
 import { IUser } from './../../interfaces/i.user.interface';
 import { HttpService } from './../../services/http/http.service';
 import { IMessage } from './../../interfaces/i.message.interface';
@@ -6,6 +7,9 @@ import { IGroup } from './../../interfaces/i.group';
 import { CurrentUserService } from './../../services/current.user.service';
 import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+declare var clickOnGroupChat:any;
 
 @Component({
   selector: 'app-chatting',
@@ -22,20 +26,27 @@ export class ChattingComponent implements OnInit {
     message: new FormControl(null, Validators.required)
   });;
 
-  groups:IGroup[]=[];
+  groups: IGroup[] = [];
   getGroupsWheneLoaded: EventEmitter<IGroup[]> = new EventEmitter<IGroup[]>();
 
-  constructor(public user: CurrentUserService, private http: HttpService) { }
+  constructor(public user: CurrentUserService, private http: HttpService, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
     //Subscribe On Event To Load Groups From Chaild
-    this.getGroupsWheneLoaded.subscribe((groups:IGroup[])=>{
-      this.groups=groups;
+    this.getGroupsWheneLoaded.subscribe((groups: IGroup[]) => {
+      this.groups = groups;
+      //Fill Current Chat
+      this.fillCurretnChat(this.router.snapshot.params.name);
     });
 
+    //Fill Current Chat Every Change URL
+    this.router.params.subscribe(newParm => {
+      //Fill Current Chat
+      this.fillCurretnChat(newParm.name);
+    });
   }
 
-/**Send Message To User */
+  /**Send Message To User */
   sendMessage(): void {
     if (this.sendMessageForm?.invalid) {
       return;
@@ -48,7 +59,7 @@ export class ChattingComponent implements OnInit {
     };
     this.http.sendMessage(newmessage).subscribe(res => {
       this.sendMessageForm.reset();
-   this.appendNewMessage(newmessage)
+      this.appendNewMessage(newmessage)
     }, error => {
       alert('Some Error Has Been')
       console.error(error);
@@ -57,15 +68,22 @@ export class ChattingComponent implements OnInit {
 
 
 
-  /**Change Current Group */
-  changeCurrentGroup(group: IGroup): void {
-    this.currentChat = group;
-  }
 
-  appendNewMessage(newMessage:IMessage):void{
+
+  appendNewMessage(newMessage: IMessage): void {
     let groupTargt = this.groups?.find(c => c.id == newMessage.groupId) as IGroup;
     groupTargt.messages.push(newMessage);
     groupTargt.lastMessage = newMessage.message;
   }
 
+
+  /**
+   * Fill Current Chat
+   * @param groupName 
+   */
+  fillCurretnChat(groupName: string): void {
+    if (!this.groups) return;
+    this.currentChat = this.groups.find(gr => gr.resourcesKey == groupName);
+    clickOnGroupChat(this.currentChat?.id);
+  }
 }//End Class

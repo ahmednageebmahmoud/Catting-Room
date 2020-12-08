@@ -20,7 +20,7 @@ export class GroupsComponent implements OnInit {
   groups?: IGroup[];
   env = environment;
 
-  @Output() ifChangeingGroupEvent: EventEmitter<IGroup> = new EventEmitter<IGroup>();
+  
   @Input() groupsLoaded?: EventEmitter<IGroup[]>
 
   constructor(private http: HttpService, public user: CurrentUserService) { }

@@ -10,7 +10,7 @@
 <div class="people">
 
     <div class="person" *ngFor="let group of groups| groupFilter:textSearch" [attr.data-chat]="group.id"
-    (click)="ifChangeingGroupEvent.emit(group)"
+[routerLink]="['/',group.resourcesKey]"  
     >
         <div class="user-info">
             <div class="f-head">
