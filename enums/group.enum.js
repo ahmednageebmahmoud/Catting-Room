@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GroupEnum = void 0;
+var GroupEnum;
+(function (GroupEnum) {
+    GroupEnum[GroupEnum["humor"] = 1] = "humor";
+    GroupEnum[GroupEnum["science_tech"] = 2] = "science_tech";
+    GroupEnum[GroupEnum["travel"] = 3] = "travel";
+    GroupEnum[GroupEnum["buy_sell"] = 4] = "buy_sell";
+    GroupEnum[GroupEnum["business"] = 5] = "business";
+    GroupEnum[GroupEnum["style"] = 6] = "style";
+    GroupEnum[GroupEnum["health"] = 7] = "health";
+    GroupEnum[GroupEnum["animals"] = 8] = "animals";
+    GroupEnum[GroupEnum["sports_fitness"] = 9] = "sports_fitness";
+    GroupEnum[GroupEnum["education"] = 10] = "education";
+    GroupEnum[GroupEnum["arts"] = 11] = "arts";
+    GroupEnum[GroupEnum["entertainment"] = 12] = "entertainment";
+    GroupEnum[GroupEnum["relationships_identity"] = 13] = "relationships_identity";
+    GroupEnum[GroupEnum["parenting"] = 14] = "parenting";
+    GroupEnum[GroupEnum["hobbies_interests"] = 15] = "hobbies_interests";
+    GroupEnum[GroupEnum["food_drink"] = 16] = "food_drink";
+    GroupEnum[GroupEnum["vehicles_commutes"] = 17] = "vehicles_commutes";
+    GroupEnum[GroupEnum["civics_community"] = 18] = "civics_community";
+    GroupEnum[GroupEnum["covid"] = 19] = "covid";
+})(GroupEnum = exports.GroupEnum || (exports.GroupEnum = {}));
