@@ -59,7 +59,7 @@ export class ChattingComponent implements OnInit {
     };
     this.http.sendMessage(newmessage).subscribe(res => {
       this.sendMessageForm.reset();
-      this.appendNewMessage(newmessage)
+      // this.appendNewMessage(newmessage)
     }, error => {
       alert('Some Error Has Been')
       console.error(error);
@@ -70,11 +70,12 @@ export class ChattingComponent implements OnInit {
 
 
 
-  appendNewMessage(newMessage: IMessage): void {
-    let groupTargt = this.groups?.find(c => c.id == newMessage.groupId) as IGroup;
-    groupTargt.messages.push(newMessage);
-    groupTargt.lastMessage = newMessage.message;
-  }
+  // I Stoped This Code Becuse I Will Push Message To Messages By Socket.io
+  // appendNewMessage(newMessage: IMessage): void {
+  //   let groupTargt = this.groups?.find(c => c.id == newMessage.groupId) as IGroup;
+  //   groupTargt.messages.push(newMessage);
+  //   groupTargt.lastMessage = newMessage.message;
+  // }
 
 
   /**
