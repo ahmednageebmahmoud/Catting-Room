@@ -41,9 +41,6 @@ export class GroupsComponent implements OnInit {
 
       SocketIoService.onMessage().subscribe((newMessage: IMessage) => {
         newMessage.isFromMe = newMessage.userInfo.email == this.user.userData?.email;
-        if (newMessage.isFromMe)
-          return;
-
           this.appendNewMessage(newMessage);
       });
 

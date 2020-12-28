@@ -719,8 +719,6 @@ class GroupsComponent {
             _services_socket_io_service__WEBPACK_IMPORTED_MODULE_0__["SocketIoService"].onMessage().subscribe((newMessage) => {
                 var _a;
                 newMessage.isFromMe = newMessage.userInfo.email == ((_a = this.user.userData) === null || _a === void 0 ? void 0 : _a.email);
-                if (newMessage.isFromMe)
-                    return;
                 this.appendNewMessage(newMessage);
             });
             //Pass Groups To Parent Component
@@ -949,12 +947,12 @@ class CurrentUserService {
         this.isLoggedIn = false;
         this.currentLanguage = _language_service__WEBPACK_IMPORTED_MODULE_4__["LanguageService"].currentLanugage;
         this.resources = _resources_service__WEBPACK_IMPORTED_MODULE_2__["ResourcesService"].getCurrentResources();
-        this.updateUserInformation();
+        this.updateUserInformation(true);
     }
     /**
      * Update User Information
      */
-    updateUserInformation() {
+    updateUserInformation(updateToFirstTime = false) {
         //Update Current Lanugage
         this.currentLanguage = _language_service__WEBPACK_IMPORTED_MODULE_4__["LanguageService"].currentLanugage;
         //Update Resources
@@ -962,13 +960,47 @@ class CurrentUserService {
         this.userData = _local_storage_service__WEBPACK_IMPORTED_MODULE_0__["LocalStorageService"].userData;
         this.isLoggedIn = this.userData ? true : false;
         //Update Page Css Files
-        this.updateCssFiles();
+        this.updateCssFiles(updateToFirstTime);
     }
     /** Update Csss Files */
-    updateCssFiles() {
-        let currentDirection = this.currentLanguage.code == _consts_language_const__WEBPACK_IMPORTED_MODULE_1__["languageConst"].english ? "ltr" : "rtl";
-        let style = document.getElementById('mainStayle');
-        style.href = style.href.replace(/rtl|ltr/, currentDirection);
+    // I Stoped Tihs Code To Fix Big Image Whene Toggle Files
+    //  updateCssFiles(): void {
+    //     let currentDirection = this.currentLanguage.code == languageConst.english ? "ltr" : "rtl";
+    //     let style = document.getElementById('mainStayle') as HTMLLinkElement;
+    //     style.href = style.href.replace(/rtl|ltr/, currentDirection);
+    // }
+    /** Here I Will Add New Link Style Element To Loade Befor Remove Old Style Link Element */
+    updateCssFiles(updateToFirstTime = false) {
+        let newElement = document.createElement('link');
+        newElement.rel = "stylesheet";
+        switch (this.currentLanguage.code) {
+            case _consts_language_const__WEBPACK_IMPORTED_MODULE_1__["languageConst"].arabic:
+                {
+                    debugger;
+                    //Add New RTL File
+                    newElement.href = "assets/css/rtl/plugins.css";
+                    newElement.id = "styleRTL";
+                    document.head.appendChild(newElement);
+                    //Remove Old LTR File Style
+                    setTimeout(() => {
+                        var _a;
+                        (_a = document.getElementById('styleLTR')) === null || _a === void 0 ? void 0 : _a.remove();
+                    }, updateToFirstTime ? 0 : 100);
+                }
+                break;
+            default:
+                {
+                    newElement.href = "assets/css/ltr/plugins.css";
+                    newElement.id = "styleLTR";
+                    document.head.appendChild(newElement);
+                    //Remove Old RTL File Style
+                    setTimeout(() => {
+                        var _a;
+                        (_a = document.getElementById('styleRTL')) === null || _a === void 0 ? void 0 : _a.remove();
+                    }, updateToFirstTime ? 0 : 100);
+                }
+                break;
+        }
     }
     /**
      * Save User Data In Local Sotage
