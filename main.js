@@ -719,8 +719,6 @@ class GroupsComponent {
             _services_socket_io_service__WEBPACK_IMPORTED_MODULE_0__["SocketIoService"].onMessage().subscribe((newMessage) => {
                 var _a;
                 newMessage.isFromMe = newMessage.userInfo.email == ((_a = this.user.userData) === null || _a === void 0 ? void 0 : _a.email);
-                if (newMessage.isFromMe)
-                    return;
                 this.appendNewMessage(newMessage);
             });
             //Pass Groups To Parent Component
